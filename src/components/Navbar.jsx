@@ -11,29 +11,88 @@ export default function Navbar({ onCategoryChange }) {
     "technology",
   ];
 
+  const navStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "12px 20px",
+    backgroundColor: "#2563eb", // Tailwind blue-600
+    color: "white",
+  };
+
+  const linkStyle = {
+    color: "white",
+    textDecoration: "none",
+    fontSize: "1rem",
+    transition: "color 0.2s ease-in-out",
+  };
+
+  const linkHover = (e) => {
+    e.target.style.color = "black";
+  };
+
+  const linkLeave = (e) => {
+    e.target.style.color = "white";
+  };
+
+  const selectStyle = {
+    backgroundColor: "#3b82f6", // Tailwind blue-500
+    color: "white",
+    border: "1px solid white",
+    borderRadius: "6px",
+    padding: "4px 8px",
+    outline: "none",
+    fontSize: "0.9rem",
+    cursor: "pointer",
+  };
+
+  const rightSection = {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+  };
+
   return (
-    <nav className="flex flex-wrap items-center justify-between p-4 bg-blue-600 text-white">
-    
-      <Link to="/" className="text-xl font-bold text-white hover:text-black ">
+    <nav style={navStyle}>
+      {/* Logo / Home Link */}
+      <Link
+        to="/"
+        style={{ ...linkStyle, fontSize: "1.25rem", fontWeight: "bold" }}
+        onMouseEnter={linkHover}
+        onMouseLeave={linkLeave}
+      >
         News Portal
       </Link>
 
-    
-      <div className="flex items-center gap-4">
-        <Link to="/search" className="text-white hover:text-black ">
+      {/* Right Section */}
+      <div style={rightSection}>
+        <Link
+          to="/search"
+          style={linkStyle}
+          onMouseEnter={linkHover}
+          onMouseLeave={linkLeave}
+        >
           Search
         </Link>
-        <Link to="/favorites" className="text-white hover:text-black">
+
+        <Link
+          to="/favorites"
+          style={linkStyle}
+          onMouseEnter={linkHover}
+          onMouseLeave={linkLeave}
+        >
           Favorites
         </Link>
 
-        
         <select
-          className="bg-blue-500 text-white border border-white rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white"
+          style={selectStyle}
           onChange={(e) => onCategoryChange(e.target.value)}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#1e40af")} // darker on hover
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "#3b82f6")}
         >
           {categories.map((cat) => (
-            <option key={cat} value={cat}>
+            <option key={cat} value={cat} style={{ color: "black" }}>
               {cat.charAt(0).toUpperCase() + cat.slice(1)}
             </option>
           ))}

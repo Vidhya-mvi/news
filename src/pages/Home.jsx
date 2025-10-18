@@ -25,23 +25,60 @@ export default function Home({ query, category }) {
   }, [articles]);
 
   return (
-    <div className="p-6 w-screen min-h-screen">
-      <h2 className="text-2xl font-bold mb-6 text-center">
-       Global News
+    <div
+      style={{
+        padding: "24px",
+        width: "100vw",
+        minHeight: "100vh",
+        backgroundColor: "#f9f9f9",
+        boxSizing: "border-box",
+      }}
+    >
+      <h2
+        style={{
+          fontSize: "28px",
+          fontWeight: "bold",
+          marginBottom: "24px",
+          textAlign: "center",
+          color: "#222",
+        }}
+      >
+        Global News
       </h2>
 
       {allArticles.length === 0 && loading && (
-        <p className="text-center text-gray-500">Loading news...</p>
+        <p
+          style={{
+            textAlign: "center",
+            color: "#666",
+            fontSize: "16px",
+          }}
+        >
+          Loading news...
+        </p>
       )}
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "20px",
+        }}
+      >
         {allArticles.length ? (
           allArticles.map((article, i) => (
             <ArticleCard key={i} article={article} />
           ))
         ) : (
           !loading && (
-            <p className="text-center col-span-full text-gray-500">
+            <p
+              style={{
+                textAlign: "center",
+                color: "#666",
+                gridColumn: "1 / -1",
+                fontSize: "16px",
+              }}
+            >
               No results found.
             </p>
           )
@@ -49,10 +86,21 @@ export default function Home({ query, category }) {
       </div>
 
       {!loading && allArticles.length >= 21 && (
-        <div className="flex justify-center mt-6">
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
           <button
             onClick={() => setPage((prev) => prev + 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            style={{
+              backgroundColor: "#1d4ed8",
+              color: "white",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontSize: "16px",
+              transition: "background-color 0.3s",
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#1e40af")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#1d4ed8")}
           >
             Show More
           </button>
@@ -60,7 +108,16 @@ export default function Home({ query, category }) {
       )}
 
       {loading && (
-        <p className="text-center text-gray-500 mt-4">Loading more news...</p>
+        <p
+          style={{
+            textAlign: "center",
+            color: "#666",
+            marginTop: "16px",
+            fontSize: "16px",
+          }}
+        >
+          Loading more news...
+        </p>
       )}
     </div>
   );

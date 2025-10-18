@@ -3,7 +3,7 @@ import ArticleCard from "../components/ArticleCard";
 
 export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(21); 
+  const [visibleCount, setVisibleCount] = useState(21);
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -17,17 +17,45 @@ export default function Favorites() {
   };
 
   const showMore = () => {
-    setVisibleCount((prev) => prev + 21); 
+    setVisibleCount((prev) => prev + 21);
   };
 
   return (
-    <div className="w-screen min-h-screen p-6 md:p-12">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Favorite Articles</h2>
+    <div
+      style={{
+        width: "100vw",
+        minHeight: "100vh",
+        padding: "40px 20px",
+        boxSizing: "border-box",
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "24px",
+        }}
+      >
+        <h2 style={{ fontSize: "24px", fontWeight: "bold", color: "#222" }}>
+          Favorite Articles
+        </h2>
+
         {favorites.length > 0 && (
           <button
             onClick={clearFavorites}
-            className="bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 transition"
+            style={{
+              backgroundColor: "#e63946",
+              color: "white",
+              padding: "10px 16px",
+              borderRadius: "10px",
+              border: "none",
+              cursor: "pointer",
+              transition: "background-color 0.3s",
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#c82333")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#e63946")}
           >
             Clear All
           </button>
@@ -36,17 +64,34 @@ export default function Favorites() {
 
       {favorites.length ? (
         <>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "20px",
+            }}
+          >
             {favorites.slice(0, visibleCount).map((article, i) => (
               <ArticleCard key={i} article={article} />
             ))}
           </div>
 
           {visibleCount < favorites.length && (
-            <div className="flex justify-center mt-6">
+            <div style={{ textAlign: "center", marginTop: "24px" }}>
               <button
                 onClick={showMore}
-                className="bg-blue-600 text-white px-6 py-2 rounded-xl hover:bg-blue-700 transition"
+                style={{
+                  backgroundColor: "#1d4ed8",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "10px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  transition: "background-color 0.3s",
+                }}
+                onMouseOver={(e) => (e.target.style.backgroundColor = "#1e40af")}
+                onMouseOut={(e) => (e.target.style.backgroundColor = "#1d4ed8")}
               >
                 Show More
               </button>
@@ -54,7 +99,14 @@ export default function Favorites() {
           )}
         </>
       ) : (
-        <p className="text-center text-gray-500 mt-10">
+        <p
+          style={{
+            textAlign: "center",
+            color: "#666",
+            marginTop: "40px",
+            fontSize: "16px",
+          }}
+        >
           No favorites yet. Try adding some from the Home or Search page!
         </p>
       )}
